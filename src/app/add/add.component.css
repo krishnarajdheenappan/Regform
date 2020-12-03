@@ -21,6 +21,18 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+
 button{
   margin-right: 10px;
 }
+form{
+  background-color: rgb(29, 212, 203);
+  /* margin:5px 5px ; */
+  padding:20px;
+}
+
+
+
+/* .form-group{
+  margin:2px 2px 2px 2px;
+} */

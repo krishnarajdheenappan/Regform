@@ -42,7 +42,9 @@ headers:any[]
    {
    
     this.fullList[i]=JSON.parse(localStorage.getItem( localStorage.key(i)))
+    console.log(this.fullList[i])
   } 
+  
   }
 }
   onDelete(list)
