@@ -1,94 +1,121 @@
 <div class="container-fluid">
 
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
     <div class="text-center">
       <h3>Registration Form</h3>
-      <!-- {{registrationForm.value | json}} -->
+      {{registrationForm.value | json}}
     </div>
+
+    <!-- Firstname -->
     <div class="form-row">
       <div class="form-group col-md-6">
-        <input [class.is-invalid]="firstname.invalid && firstname.touched" type="text" class="form-control" id="FirstName" formControlName="fname" placeholder="FirstName">
+        <input [class.is-invalid]="firstname.invalid && firstname.touched" type="text" class="form-control"
+          id="FirstName" formControlName="fname" placeholder="FirstName">
+          <div *ngIf="firstname.invalid && firstname.touched">
+            <small class="errorText" *ngIf="firstname.errors?.required">FirstName is required</small>
+                  </div>
       </div>
-      <div class="form-group col-md-6">
 
-        <input  [class.is-invalid]="lastname.invalid && lastname.touched" type="text" class="form-control" id="LastName" formControlName="lname" placeholder="LastName">
+
+        <!-- lastname -->
+      <div class="form-group col-md-6">
+        <input [class.is-invalid]="lastname.invalid && lastname.touched" type="text" class="form-control" id="LastName"
+          formControlName="lname" placeholder="LastName">
+          <div *ngIf="lastname.invalid && lastname.touched">
+            <small class="errorText" *ngIf="lastname.errors?.required">LastName is required</small>
+            </div>
       </div>
-      <small *ngIf="firstname.invalid && firstname.touched">Firstname is required</small>
-      <small *ngIf="lastname.invalid && lastname.touched">Lastname is required</small>
+
     </div>
+
+    <!-- gender radio button -->
     <div class="form-group">
       <h6>Gender:</h6>
       <div class="form-row">
-        <div   class="custom-control custom-radio" *ngFor="let gen of genders">
+        <div class="custom-control custom-radio" *ngFor="let gen of genders">
           <input #gg type="radio" [id]="gen.name" name="gender" formControlName="gender" [value]="gen.name"
             class="custom-control-input">
           <label class="custom-control-label" [for]="gen.name">{{gen.name}}</label>
         </div>
+        
       </div>
-      <!-- <div *ngIf="gender.invalid && gender.touched"> -->
-      <!-- <small *ngIf="gender.touched==false">Select the gender</small> -->
-     
-      <!-- <small class="errorText" *ngIf="gender.errors?.required">Gender is required</small> -->
-<!-- </div> -->
+
+      <!-- Email text -->
     </div>
     <div class="form-group">
-      <input [class.is-invalid]="email.invalid && email.touched" type="email" class="form-control" formControlName="email" id="emailid" placeholder="Email ">
+      <input [class.is-invalid]="email.invalid && email.touched" type="email" class="form-control"
+        formControlName="email" id="emailid" placeholder="Email"  >
       <div *ngIf="email.invalid && email.touched">
         <small class="errorText" *ngIf="email.errors?.required">Email is required</small>
-        <small class="errorText" *ngIf="email.errors?.pattern ">Please verify the Email format For Eg.xxx@xxx.xxx</small>
-        </div>    </div>
+        <small class="errorText" *ngIf="email.errors?.pattern ">Please verify the Email format For
+          Eg.xxx@xxx.xxx</small>
+      </div>
+    </div>
+
+    <!-- Address -->
     <div class="form-group">
-      <input [class.is-invalid]="address.invalid && address.touched" type="text" class="form-control" id="addresses" formControlName="address" placeholder="Address">
+      <input [class.is-invalid]="address.invalid && address.touched" type="text" class="form-control" id="addresses"
+        formControlName="address" placeholder="Address">
       <div *ngIf="address.invalid && address.touched">
         <small class="errorText" *ngIf="address.errors?.required">Address is required</small>
         <small class="errorText" *ngIf="address.errors?.pattern ">Please verify the address format</small>
-        </div>
+      </div>
     </div>
+
+    <!-- city -->
     <div class="form-row">
       <div class="form-group col-md-4">
-        <input [class.is-invalid]="city.invalid && city.touched" type="text" class="form-control" id="city" formControlName="city" placeholder="City">
+        <input [class.is-invalid]="city.invalid && city.touched" type="text" class="form-control" id="city"
+          formControlName="city" placeholder="City">
         <div *ngIf="city.invalid && city.touched">
-        <small class="errorText" *ngIf="city.errors?.required">City is required</small>
-        <small class="errorText" *ngIf="city.errors?.pattern ">Please verify the City format</small>
+          <small class="errorText" *ngIf="city.errors?.required">City is required</small>
+          <small class="errorText" *ngIf="city.errors?.pattern ">Please verify the City format</small>
         </div>
       </div>
+
+      <!-- state -->
       <div class="form-group col-md-5">
-        <select  [class.is-invalid]="state.invalid && state.touched" id="states" class="form-control" name="state" formControlName="state">
-          <option selected>s</option>
-          <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+        <select [class.is-invalid]="state.invalid && state.touched" class="form-control" name="state"
+          formControlName="state" >
+                 <option *ngFor="let state of states"  [ngValue]="state.name">{{state.name}}</option>
         </select>
         <small *ngIf="state.invalid && state.touched">State is required</small>
       </div>
+      <!-- zip -->
       <div class="form-group col-md-3">
-        <input  [class.is-invalid]="zip.invalid && zip.touched" type="text" class="form-control" id="zip" formControlName="zip" placeholder="Zip">
-  
-       <div *ngIf="zip.invalid && zip.touched ">
-        <small class="errorText" *ngIf="zip.errors?.required">State is required</small>
-        <small class="errorText" *ngIf="(zip.errors?.minlength ||zip.errors?.maxlength) && !zip.errors?.pattern">ZIP code should 6 digit</small>
-        <small class="errorText" *ngIf="zip.errors?.pattern ">Only numeric values</small>
-       </div>
-        
+        <input [class.is-invalid]="zip.invalid && zip.touched" type="text" class="form-control" id="zip"
+          formControlName="zip" placeholder="Zip">
+        <div *ngIf="zip.invalid && zip.touched ">
+          <small class="errorText" *ngIf="zip.errors?.required">Zip is required</small>
+          <small class="errorText" *ngIf="(zip.errors?.minlength ||zip.errors?.maxlength) && !zip.errors?.pattern">ZIP
+            code should 6 digit</small>
+          <small class="errorText" *ngIf="zip.errors?.pattern ">Only numeric values</small>
+        </div>
       </div>
     </div>
+
+    <!-- language -->
     <div class="form-group">
       <h6>Languages:</h6>
       <div class="form-row">
         <div class="form-check" *ngFor="let lang of langsArray.controls;let i = index">
-          <input  (change)="getSelectLanguage()" class="form-check-input" [formControl]="lang" type="checkbox" id="speak{{i}}">
+          <input (change)="getSelectLanguage()" class="form-check-input" [formControl]="lang" type="checkbox"
+            id="speak{{i}}">
           <label class="form-check-label" for="speak{{i}}">
-            {{langs[i]}} {{lang.value | json}}
-        
+            {{langs[i]}}
           </label>
         </div>
         <div>
-        <small *ngIf="!haveSelectedlang && checkTouch()">Atleast One language is required</small>
-      </div>
+          <small *ngIf="!haveSelectedlang && checkTouch()">Atleast One language is required</small>
+        </div>
       </div>
     </div>
-    <button [disabled]=" haveSelectedlang==false || registrationForm.invalid==true" *ngIf="updateMode==false" type="submit" class="btn btn-primary">Submit</button>
+    <div>
+    <button [disabled]=" haveSelectedlang==false || registrationForm.invalid==true" *ngIf="updateMode==false"
+      type="submit" class="btn btn-primary">Submit</button>
     <button *ngIf="updateMode==true" type="button" class="btn btn-primary" (click)="onSubmit()">Update</button>
     <button type="button" class="btn btn-primary" (click)="onList()">List</button>
+  </div>
   </form>
 </div>
-
-<!-- registrationForm.invalid==true && -->

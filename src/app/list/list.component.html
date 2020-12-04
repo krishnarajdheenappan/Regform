@@ -1,18 +1,37 @@
-<div class="container-fliud">
-<h4>Complete List</h4>
-<table class="table table-dark">
-                    <tr>
-                        <th *ngFor="let header of headers">{{header.head}}</th>
-                                            </tr>
-<tr *ngFor="let list of fullList; let i = index">
-    <td>{{i + 1}}</td>
-    <td>{{list.fname}}{{list.lname}}</td>
-    <td>{{list.gender}}</td>
-    <td>{{list.email}}</td>
-    <td>{{list.state}}</td>
-    <td><button type="button" class="btn btn-secondary" (click)=onEdit(list)>Edit</button></td>
-    <td><button type="button" class="btn btn-danger" (click)=onDelete(list)>Delete</button></td>   
+<div class="container-fluid">
+    <!-- alert message will be displayed -->
+    <div *ngFor="let list of fullList">
+        <div *ngIf="alertflag && list==listtodelete" class="alert alert-warning fade show">
+            <strong> will be deleted Permanently </strong><div> <button type="button" class="btn btn-danger"
+                    (click)="deletePermanently(list)">Yes</button> <button type="button" class="btn btn-success"
+                    (click)="dontdelete()">No</button></div>
+        </div>
+    </div>
     
-</tr>
-</table>
+    <!-- display the complete list of users -->
+    <h4>Complete List</h4>
+    <table class="table table-dark">
+        <tr>
+            <th *ngFor="let header of headers">{{header.head}}</th>
+        </tr>
+        <tr *ngFor="let list of fullList; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{list.fname}}{{list.lname}}</td>
+            <td>{{list.gender}}</td>
+            <td>{{list.email}}</td>
+            <td>{{list.address}}</td>
+            <td>{{list.city}}</td>
+            <td>{{list.state}}</td>
+            <td>{{list.zip}}</td>
+            <td><button type="button" class="btn btn-secondary" (click)=onEdit(list)>Edit</button></td>
+            <td><button type="button" class="btn btn-danger" (click)=onDelete(list)>Delete</button>
+            </td>
+        </tr>
+    </table>
+
+    <!-- to add a new user button -->
+    <div>
+        To Add a new User . Please click
+        <button type="button" class="btn btn-success" (click)=onAdd()>Add</button>
+    </div>
 </div>

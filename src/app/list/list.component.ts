@@ -1,7 +1,5 @@
-import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -10,62 +8,61 @@ import { from } from 'rxjs';
 })
 export class ListComponent implements OnInit {
 
-fullList:any[]
-headers:any[]
-  constructor(private route:Router) { }
+  fullList: any[]
+  headers: any[]
+  alertflag: Boolean = false
+  listtodelete: any
 
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
-
-    if(localStorage.length==0)
-    {
+    sessionStorage.clear()
+    if (localStorage.length == 0) {
       this.route.navigateByUrl("/empty")
-      
     }
-    else{
+    else {
+      this.fullList = []
+      this.headers = [
+        { head: "SL. No." },
+        { head: "Name" },
+        { head: "Gender" },
+        { head: "Email" },
+        { head: "Address" },
+        { head: "City" },
+        { head: "State" },
+        { head: "Zip" },
+        { head: "Edit" },
+        { head: "Delete" }
+      ]
 
-    
-  this.fullList=[]
-
-  this.headers=[{
-    head:"SL. No."},{
-    head:"Name"},   
-    {head:"Gender"},
-    {head:"Email"},
-    {head:"State"},
-    {head:"Edit"},
-    {head:"Delete"}
-  ]
-   
-  
-   for(let i=0;i<localStorage.length;i++)
-   {
-   
-    this.fullList[i]=JSON.parse(localStorage.getItem( localStorage.key(i)))
-    console.log(this.fullList[i])
-  } 
-  
-  }
-}
-  onDelete(list)
-  {
-// alert("The Data will be permanently deleted")
-localStorage.removeItem(list.email.valueOf());
-window.location.reload();
-
-
-
-
+      for (let i = 0; i < localStorage.length; i++) {
+        this.fullList[i] = JSON.parse(localStorage.getItem(localStorage.key(i)))
+      }
+    }
   }
 
-  onEdit(list){
-    // console.log(typeof(list.email.valueOf()));
-    
-    sessionStorage.setItem(list.email.valueOf(),"true")
+  onDelete(list) {
+    this.alertflag = true
+    this.listtodelete = list
+  }
+
+  deletePermanently(list) {
+    localStorage.removeItem(list.email.valueOf());
+    window.location.reload();
+  }
+
+  dontdelete() {
+    window.location.reload();
+  }
+
+
+  onEdit(list) {    
+    sessionStorage.setItem(list.email.valueOf(), "true")
     this.route.navigateByUrl("/add")
-    
-
   }
-  
+
+  onAdd() {
+    this.route.navigateByUrl("/add")
+  }
 
 }

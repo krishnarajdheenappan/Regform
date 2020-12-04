@@ -8,7 +8,8 @@ const routes: Routes = [
  { path: 'list', loadChildren: () => import('./list/list.module').then(m => m.ListModule) }, 
  { path: 'welcome', loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule) },
   { path: 'success', loadChildren: () => import('./success/success.module').then(m => m.SuccessModule) },
-  { path: 'empty', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) }];
+  { path: 'empty', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) },
+  { path: '**', loadChildren: () => import('./pagenotfound/pagenotfound.module').then(m => m.PagenotfoundModule) }]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

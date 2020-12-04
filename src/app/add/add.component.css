@@ -24,6 +24,8 @@ input[type=number] {
 
 button{
   margin-right: 10px;
+  height:40px;
+  width:100px;
 }
 form{
   background-color: rgb(29, 212, 203);

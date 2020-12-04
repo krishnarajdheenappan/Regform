@@ -20,6 +20,7 @@ export class WelcomeComponent implements OnInit {
   }
   onList()
 {
+  
   this.router.navigateByUrl("list")
 }
 
